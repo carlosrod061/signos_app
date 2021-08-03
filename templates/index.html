@@ -1,0 +1,122 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+
+<div class="row">
+    <div class="col-md-7 pb-4">
+
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <div class="card card-body bg-dark">
+            <h5 class="card-title mx-auto pb-4 text-light"><ins>Encuesta</h5></ins></h5>
+            <form id="form-encuesta" action="/insertarRespuesta" method="POST">
+                <div class="form-group pt-2">
+                    <label for="exampleInputEmail1" class="form-label text-light">Fecha de Nacimiento:</label>
+                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="date" onchange="asignarSigno()"
+                        required />
+                </div>
+                <div class="form-group pt-2">
+                    <label for="exampleInputEmail1" class="form-label text-light">Elige uno de los siguientes hobbies:</label>
+                    <select class="form-control" id="select1" name="select1" onchange="removeDanger(this)">
+                        <option value="0" selected>Elige una opcion...</option>
+                        <option value="1">Deportes</option>
+                        <option value="2">Tocar un instrumento musical</option>
+                        <option value="3">Pintar</option>
+                        <option value="4">Leer</option>
+                        <option value="5">Bailar</option>
+                    </select>
+                </div>
+                <div class="form-group pt-2">
+                    <label for="exampleInputEmail1" class="form-label text-light">En tu grupo de amigos, ¿Cual de los siguientes
+                        esteriotipos encaja mas contigo?</label>
+                    <select class="form-control" id="select2" name="select2">
+                        <option value="0" selected>Elige una opcion...</option>
+                        <option value="1">El bromista</option>
+                        <option value="2">El mas callado</option>
+                        <option value="3">El fiestero</option>
+                        <option value="4">El que mas habla</option>
+                        <option value="5">El mas sentimental</option>
+                    </select>
+                </div>
+                <div class="form-group pt-2">
+                    <label for="exampleInputEmail1" class="form-label text-light">En una relacion que palabra te define
+                        mas:</label>
+                    <select class="form-control" id="select3" name="select3">
+                        <option value="0" selected>Elige una opcion...</option>
+                        <option value="1">Celoso(a).</option>
+                        <option value="2">Amoroso(a)</option>
+                        <option value="3">Fiel</option>
+                        <option value="4">Impulsivo(a).</option>
+                        <option value="5">Indiferente.</option>
+                    </select>
+                </div>
+                <div class="form-group pt-2">
+                    <label for="exampleInputEmail1" class="form-label text-light">Ante una situación estresante o tensa mi reacción
+                        es:</label>
+                    <select class="form-control" id="select4" name="select4">
+                        <option value="0" selected>Elige una opcion...</option>
+                        <option value="1">Comienzo a titubear y a dudar(Nervioso)</option>
+                        <option value="2">Abandono el lugar o la acción que estoy realizando(Inseguro).</option>
+                        <option value="3">Siento muchas emociones a la vez, ganas de llorar y/o enojo(Sensible).
+                        </option>
+                        <option value="4">Ignorarla o prestarle poca atención a lo que sucede(Apático).</option>
+                        <option value="5">Me tranquilizo y busco una solución con la cabeza fría (Flemático).
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group pt-2">
+                    <label for="exampleInputEmail1" class="form-label text-light">Cuando trabajo en equipo…</label>
+                    <select class="form-control" id="select5" name="select5">
+                        <option value="0" selected>Elige una opcion...</option>
+                        <option value="1">Aporto ideas y me gusta comunicar lo que pienso(Cerebro).</option>
+                        <option value="2">Me gusta analizar las propuestas de las personas y señalar posibles mejoras
+                            (Evaluador).</option>
+                        <option value="3">Llevo a cabo las ideas propuestas, tomo siempre acción(Implementador).
+                        </option>
+                        <option value="4">Una vez que las cosas se implementan verifico que no halla
+                            fallos(Finalizador).</option>
+                        <option value="5">Me gusta mantener un ambiente bueno dentro del equipo(Cohesionador).
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group pt-2" hidden>
+                    <label for="exampleInputEmail1" class="form-label text-light">Signo Zodiacal:</label>
+                    <input class="form-control" id="signo" name="signo" placeholder="Signo" type="text"
+                        required />
+                </div>
+                <div class="form-group justify-content-end">
+                    <button type="submit" id="btnConfirmar" class="btn btn-primary btn-sm mx-auto pt-2 mt-3" hidden></button>
+                </div>
+
+            </form>
+            <button type="" class="btn btn-primary btn-sm mx-auto pt-2 mt-3"
+            onclick="verificarCampos()">Finalizar encuesta</button>
+        </div>
+    </div>
+
+    
+    <div class="col-md-4">
+        <div class="card card-body bg-dark">
+            <h5 class="card-title mx-auto pb-1 text-light"><ins>Informacion</ins></h5>
+            <p class="text-justify text-light">La informacion recopilada en esta encuesta es utilizada con la finalidad de mejorar el algoritmo de predicción.</p>
+        </div>
+
+    </div>
+    
+</div>
+
+
+{% endblock %}
